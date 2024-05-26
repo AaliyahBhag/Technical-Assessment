@@ -1,0 +1,91 @@
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Bond {
+    private LocalDate settlementDate;
+    private LocalDate maturityDate;
+    private LocalDate lastCouponDate;
+    private double couponRate;
+    private double yield;
+    private double faceValue;
+    private long dayCountConvention;
+    private int couponFrequency;
+
+    public Bond(LocalDate settlementDate, LocalDate maturityDate, LocalDate lastCouponDate,
+            double couponRate, double yield, double faceValue,
+            long dayCountConvention, int couponFrequency) {
+            if (couponRate < 0 || yield < 0 || faceValue < 0) {
+            throw new IllegalArgumentException("Coupon rate, yield, and face value must be non-negative.");
+        } 
+        this.settlementDate = settlementDate;
+        this.maturityDate = maturityDate;
+        this.lastCouponDate = lastCouponDate;
+        this.couponRate = couponRate;
+        this.yield = yield;
+        this.faceValue = faceValue;
+        this.dayCountConvention = dayCountConvention;
+        this.couponFrequency = couponFrequency;
+    }
+    /** Function Objective: Determine the Present Value of the Nominal
+     * The Nominal is divided by the discount factor tp determine the present value
+     * The coupon factor is raised to the number of coupon periods
+     */
+    public double calculatePresentValueOfFaceValue() {
+        double daysToMaturity = ChronoUnit.DAYS.between(settlementDate, maturityDate);
+        double periodToMaturity = (daysToMaturity / dayCountConvention) * couponFrequency;
+        double couponFactor = 1 + (yield / couponFrequency);
+        double discountFactorFV = Math.pow(couponFactor, periodToMaturity);
+        return faceValue / discountFactorFV;
+    }
+    /**Function Objective:  Calculate Accrued Interest
+     * The formula for accrued interest = Coupon Rate multitiplied by the the difference between the settlement date and the last coupon date over 365
+     * To obtain the Rand value of the accrued interest multiply the above output by the nominal value of the bond
+    **/
+    public double calculateAccruedInterest() {
+        double daysSinceLastCoupon = ChronoUnit.DAYS.between(lastCouponDate, settlementDate);
+        return couponRate * (daysSinceLastCoupon / dayCountConvention) * faceValue;
+    }
+    /**Function Objective: Generate a list of all coupon dates in a list
+     * SAGBs pay semi-annual coupon hence the coupon dates are 6 months apart
+     * The loop is to ensure no coupon values are generated post the maturity date of the bond
+     */
+    public List<LocalDate> generateCouponDates() {
+        List<LocalDate> couponDates = new ArrayList<>();
+        LocalDate nextCouponDate = lastCouponDate.plusMonths(12 / couponFrequency);
+        while (!nextCouponDate.isAfter(maturityDate)) {
+            couponDates.add(nextCouponDate);
+            nextCouponDate = nextCouponDate.plusMonths(12 / couponFrequency);
+        }
+        return couponDates;
+    }
+    /**Function Objective: All Future Coupons need to be discounted to the Present Value of coupon payments
+     * The Present value is set initially set to 0 - once all coupons are discounted the variable is used to add all PV of coupons
+     * Semi-annual coupons are equal to the Coupon Rate divided by 2 multiplied by the nominal of the bond
+     */
+    public double calculatePresentValueOfCoupons() {
+        double semiAnnualCouponPayment = (couponRate / 2) * faceValue;
+        double totalPV = 0.0;
+        List<LocalDate> couponDates = generateCouponDates();
+        for (LocalDate couponDate : couponDates) {
+            long daysBetween = ChronoUnit.DAYS.between(settlementDate, couponDate);
+            double pv = semiAnnualCouponPayment / Math.pow(1 + yield / 2, daysBetween / 365.0 * 2);
+            totalPV += pv;
+        }
+        return totalPV;
+    }
+    
+    public double calculateDirtyPrice() {
+        double presentValueOfFaceValue = calculatePresentValueOfFaceValue();
+        double presentValueOfCoupons = calculatePresentValueOfCoupons();
+        return presentValueOfCoupons + presentValueOfFaceValue;
+    }
+
+    public double calculateCleanPrice() {
+        double presentValueOfFaceValue = calculatePresentValueOfFaceValue();
+        double presentValueOfCoupons = calculatePresentValueOfCoupons();
+        double accruedInterest = calculateAccruedInterest();
+        return presentValueOfFaceValue + presentValueOfCoupons - accruedInterest;
+    }
+}
