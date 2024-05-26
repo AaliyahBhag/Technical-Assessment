@@ -1,0 +1,80 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try (Scanner scanner = new Scanner(System.in)) {
+
+        System.out.println("Welcome to the South African Government Bond Pricer!\n");
+
+        System.out.println("Would you like to use example inputs? (1/2/no) ");
+        String useExample = scanner.nextLine().trim().toLowerCase();
+
+        LocalDate settlementDate, maturityDate, lastCouponDate;
+        double couponRate, yield, faceValue;
+
+        if (useExample.equals("1")) {
+            settlementDate = LocalDate.parse("2017-02-07", formatter);
+            maturityDate = LocalDate.parse("2026-12-21", formatter);
+            lastCouponDate = LocalDate.parse("2016-12-21", formatter);
+            couponRate = 0.105;
+            yield = 0.0875;
+            faceValue = 100.00; //Nominal
+            System.out.println("\n Using example 1 inputs for the R186");
+        } else if (useExample.equals("2")) {
+            settlementDate = LocalDate.parse("2024-05-16", formatter);
+            maturityDate = LocalDate.parse("2032-03-31", formatter);
+            lastCouponDate = LocalDate.parse("2024-03-31", formatter);
+            couponRate = 0.0825;
+            yield = 0.095;
+            faceValue = 100.00; // Nominal
+            System.out.println("\n Using example 1 inputs for the R2032");
+        } else if (useExample.equals("no")) {
+
+            System.out.print("Enter the settlement date (yyyy-MM-dd): ");
+            settlementDate = LocalDate.parse(scanner.nextLine(), formatter);
+
+            System.out.print("Enter the maturity date (yyyy-MM-dd): ");
+            maturityDate = LocalDate.parse(scanner.nextLine(), formatter);
+
+            System.out.print("Enter the last coupon date (yyyy-MM-dd): ");
+            lastCouponDate = LocalDate.parse(scanner.nextLine(), formatter);
+            
+            System.out.print("Enter the Rand nominal amount of the SAGB you would like to value: ");
+            faceValue = Double.parseDouble(scanner.nextLine());
+
+            System.out.print("Enter the coupon rate (as a decimal, e.g., 0.0825): ");
+            couponRate = Double.parseDouble(scanner.nextLine());
+
+            System.out.print("Enter the yield (as a decimal, e.g., 0.095): ");
+            yield = Double.parseDouble(scanner.nextLine());
+
+         } else {
+                System.out.println("Invalid choice. Please enter '1', '2', or 'no'.");
+                return;
+        } 
+        long dayCountConvention = 365; // SAGB Day Count Convention = Actual/365
+        int couponFrequency = 2; // SAGB coupons are paid semiannually
+
+        Bond bond = new Bond(settlementDate, maturityDate, lastCouponDate, couponRate, yield, faceValue,
+                                             dayCountConvention, couponFrequency);
+
+        double cleanPrice = bond.calculateCleanPrice();
+        double accruedInterest = bond.calculateAccruedInterest();
+        double dirtyPrice = bond.calculateDirtyPrice();
+
+        String cleanPriceFormatted = String.format(Locale.US, "%.4f", cleanPrice);
+        String accruedInterestFormatted = String.format(Locale.US, "%.4f", accruedInterest);
+        String allInPriceFormatted = String.format(Locale.US, "%.4f", dirtyPrice);
+        
+        System.out.printf("\nThe Clean Price of the SAGB with a nominal of R" + faceValue + " is equal to R" + cleanPriceFormatted+ "\n");
+        System.out.printf("The Accrued Interest of the SAGB with a nominal of R" + faceValue + " is equal to R" + accruedInterestFormatted + "\n");
+        System.out.printf("The All-in-Price of the SAGB with a nominal of R" + faceValue+ " is equal to R" + allInPriceFormatted + "/n");
+        } catch (Exception e) {
+        e.printStackTrace();
+        }
+    }
+}
