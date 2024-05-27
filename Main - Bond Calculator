@@ -56,7 +56,7 @@ public class Main {
                 System.out.println("Invalid choice. Please enter '1', '2', or 'no'.");
                 return;
         } 
-        long dayCountConvention = 365; // SAGB Day Count Convention = Actual/365
+        double dayCountConvention = 365; // SAGB Day Count Convention = Actual/365
         int couponFrequency = 2; // SAGB coupons are paid semiannually
 
         Bond bond = new Bond(settlementDate, maturityDate, lastCouponDate, couponRate, yieldToMaturity, faceValue,
@@ -69,7 +69,7 @@ public class Main {
         String cleanPriceFormatted = String.format(Locale.US, "%.4f", cleanPrice);
         String accruedInterestFormatted = String.format(Locale.US, "%.4f", accruedInterest);
         String allInPriceFormatted = String.format(Locale.US, "%.4f", allInPrice);
-        String faceValueFormatted = String.format(Locale.US, "%.4f", faceValue);
+        String faceValueFormatted = String.format(Locale.US, "%.2f", faceValue);
         
         System.out.printf("\nThe Clean Price of the SAGB with a nominal of R" + faceValueFormatted + " is equal to R" + cleanPriceFormatted+ "\n");
         System.out.printf("The Accrued Interest of the SAGB with a nominal of R" + faceValueFormatted + " is equal to R" + accruedInterestFormatted + "\n");
@@ -79,3 +79,5 @@ public class Main {
         }
     }
 }
+
+
