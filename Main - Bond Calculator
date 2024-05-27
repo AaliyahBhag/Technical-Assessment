@@ -14,24 +14,24 @@ public class Main {
         String useExample = scanner.nextLine().trim().toLowerCase();
 
         LocalDate settlementDate, maturityDate, lastCouponDate;
-        double couponRate, yield, faceValue;
+        double couponRate, yieldToMaturity, faceValue;
 
         if (useExample.equals("1")) {
             settlementDate = LocalDate.parse("2017-02-07", formatter);
             maturityDate = LocalDate.parse("2026-12-21", formatter);
             lastCouponDate = LocalDate.parse("2016-12-21", formatter);
             couponRate = 0.105;
-            yield = 0.0875;
+            yieldToMaturity = 0.0875;
             faceValue = 100.00; //Nominal
-            System.out.println("\n Using example 1 inputs for the R186");
+            System.out.println("\nUsing example 1 inputs for the R186");
         } else if (useExample.equals("2")) {
             settlementDate = LocalDate.parse("2024-05-16", formatter);
             maturityDate = LocalDate.parse("2032-03-31", formatter);
             lastCouponDate = LocalDate.parse("2024-03-31", formatter);
             couponRate = 0.0825;
-            yield = 0.095;
+            yieldToMaturity = 0.095;
             faceValue = 100.00; // Nominal
-            System.out.println("\n Using example 1 inputs for the R2032");
+            System.out.println("\nUsing example 2 inputs for the R2032");
         } else if (useExample.equals("no")) {
 
             System.out.print("Enter the settlement date (yyyy-MM-dd): ");
@@ -50,7 +50,7 @@ public class Main {
             couponRate = Double.parseDouble(scanner.nextLine());
 
             System.out.print("Enter the yield (as a decimal, e.g., 0.095): ");
-            yield = Double.parseDouble(scanner.nextLine());
+            yieldToMaturity = Double.parseDouble(scanner.nextLine());
 
          } else {
                 System.out.println("Invalid choice. Please enter '1', '2', or 'no'.");
@@ -59,22 +59,23 @@ public class Main {
         long dayCountConvention = 365; // SAGB Day Count Convention = Actual/365
         int couponFrequency = 2; // SAGB coupons are paid semiannually
 
-        Bond bond = new Bond(settlementDate, maturityDate, lastCouponDate, couponRate, yield, faceValue,
+        Bond bond = new Bond(settlementDate, maturityDate, lastCouponDate, couponRate, yieldToMaturity, faceValue,
                                              dayCountConvention, couponFrequency);
 
         double cleanPrice = bond.calculateCleanPrice();
         double accruedInterest = bond.calculateAccruedInterest();
-        double dirtyPrice = bond.calculateDirtyPrice();
+        double allInPrice = bond.calculateAllInPrice();
 
         String cleanPriceFormatted = String.format(Locale.US, "%.4f", cleanPrice);
         String accruedInterestFormatted = String.format(Locale.US, "%.4f", accruedInterest);
-        String allInPriceFormatted = String.format(Locale.US, "%.4f", dirtyPrice);
+        String allInPriceFormatted = String.format(Locale.US, "%.4f", allInPrice);
+        String faceValueFormatted = String.format(Locale.US, "%.4f", faceValue);
         
-        System.out.printf("\nThe Clean Price of the SAGB with a nominal of R" + faceValue + " is equal to R" + cleanPriceFormatted+ "\n");
-        System.out.printf("The Accrued Interest of the SAGB with a nominal of R" + faceValue + " is equal to R" + accruedInterestFormatted + "\n");
-        System.out.printf("The All-in-Price of the SAGB with a nominal of R" + faceValue+ " is equal to R" + allInPriceFormatted + "/n");
+        System.out.printf("\nThe Clean Price of the SAGB with a nominal of R" + faceValueFormatted + " is equal to R" + cleanPriceFormatted+ "\n");
+        System.out.printf("The Accrued Interest of the SAGB with a nominal of R" + faceValueFormatted + " is equal to R" + accruedInterestFormatted + "\n");
+        System.out.printf("The All-in-Price of the SAGB with a nominal of R" + faceValueFormatted + " is equal to R" + allInPriceFormatted + "\n");
         } catch (Exception e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }
