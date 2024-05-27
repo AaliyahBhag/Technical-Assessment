@@ -32,17 +32,17 @@ class BondTest {
         LocalDate maturityDate = LocalDate.parse("2032-03-31");
         LocalDate lastCouponDate = LocalDate.parse("2024-03-31");
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Bond(settlementDate, maturityDate, lastCouponDate, -0.0825, 0.095, 100.00, 365, 2);
-        });
+        assertThrows(IllegalArgumentException.class,
+                () -> new Bond(settlementDate, maturityDate, lastCouponDate, -0.0825, 0.095, 100.00, 365, 2)
+        );
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, -0.095, 100.00, 365, 2);
-        });
+        assertThrows(IllegalArgumentException.class,
+                () -> new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, -0.095, 100.00, 365, 2)
+        );
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, 0.095, -100.00, 365, 2);
-        });
+        assertThrows(IllegalArgumentException.class,
+                () -> new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, 0.095, -100.00, 365, 2)
+        );
     }
 
     @Test //Tests if an IllegalArgumentException is thrown when the settlement date is after the maturity date.
@@ -51,9 +51,9 @@ class BondTest {
         LocalDate maturityDate = LocalDate.parse("2032-03-31");
         LocalDate lastCouponDate = LocalDate.parse("2024-03-31");
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, 0.095, 100.00, 365, 2);
-        });
+        assertThrows(IllegalArgumentException.class,
+            () -> new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, 0.095, 100.00, 365, 2)
+        );
     }
 
     @Test //Checks if an IllegalArgumentException is thrown when the last coupon date is after the settlement date.
@@ -62,9 +62,9 @@ class BondTest {
         LocalDate maturityDate = LocalDate.parse("2032-03-31");
         LocalDate lastCouponDate = LocalDate.parse("2024-06-01");
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, 0.095, 100.00, 365, 2);
-        });
+        assertThrows(IllegalArgumentException.class,
+                () -> new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, 0.095, 100.00, 365, 2)
+        );
     }
 
     @Test // Checks if the accrued interest is calculated correctly and is non-negative.
@@ -124,7 +124,7 @@ class BondTest {
         assertTrue(allInPrice > faceValue, "Dirty price should be greater than face value when yield is less than coupon rate.");
     }
 
-    @Test //When a bond is trading at a discount: YTM > Coupon Rate the Clean and Dirty Price is less than the Nominal of the bond 
+    @Test //When a bond is trading at a discount: YTM > Coupon Rate the Clean and Dirty Price is less than the Nominal of the bond
     void testYieldGreaterThanCouponRate() {
         LocalDate settlementDate = LocalDate.parse("2024-05-16");
         LocalDate maturityDate = LocalDate.parse("2032-03-31");
@@ -144,4 +144,3 @@ class BondTest {
         assertTrue(allInPrice < faceValue, "Dirty price should be less than face value when yield is greater than coupon rate.");
     }
 }
-
