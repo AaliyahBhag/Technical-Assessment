@@ -3,47 +3,70 @@
 ## **PART 1**  
 This code presents a user interface for pricing South African Government Bonds (SAGBs), offering the option to use example inputs or input custom values. It calculates the clean price, accrued interest, and all-in-price of the bond based on the provided data.
 
-### **Code Instructions**
-**NB: The user needs to open seperate tab within their IDE for the Main and Bond Class**  
-1. When the user runs the code it begins by welcoming the user and asking if they want to use example inputs (1 or 2) or input their own values.
-   Example one and two are the examples provided in the assessment. If the user chooses example 1 or 2, predefined values for settlement date, maturity date, last     coupon date, coupon rate, yield, and face value are populated and the results are printed into the console.  
-2. If the user chooses "no", they are prompted to input their own values for these parameters.  
-3. The bond object is created using the provided or predefined values.  
-4. The clean price, accrued interest, and dirty price are calculated using the methods defined in the Bond class.  
-5. The results are printed to the console. 
+### Using the Bond Pricing Application
+
+#### Opening the Project
+1. **Clone the Repository:**
+   - Clone the files Main and Bond from the repository containing the Java classes.
+   - Save the two classes as 'Main.java' and 'Bond.java' to your local machine.
+2. **Open the Project in IntelliJ IDEA:**
+   - Launch IntelliJ IDEA.
+   - Open the cloned directory as a project in IntelliJ IDEA.
+#### Running the Code
+1. **Execute the Program:**
+   - Locate the `Main.java` and 'Bond.java' file in the project explorer.
+   - Right-click on `Main.java` and select "Run Main.main()" to execute the program.
+#### Using the Application
+1. **Initial Input:**
+   - Upon running the program, it will display a welcome message and prompt you to choose example inputs (1 or 2) or input your own values ("no"). 
+2. **Example Inputs:**
+   - The two predefined inputs are the R186 and R2032 examples given in the assessment.
+   - Choosing example 1 or 2 will use predefined values for bond parameters and print the results to the console.
+4. **Custom Inputs:**
+   - If you choose "no", you'll be asked to input your own values for bond parameters.
+   - The inputs required are the settlement date, maturity date, last coupon date, coupon rate, yield-to-maturity and nominal in rand.
+   - Please follow the format specified in each prompt for your parameter inputs
+5. **Calculations:**
+   - The bond object will be created using the provided or predefined values.
+   - Clean price, accrued interest, and dirty price will be calculated based on these values using methods defined in the `Bond.java` class.
+   - Each calculation is elaborated on within the script.
+6. **Viewing Results:**
+   - The console output will display the calculated clean price, accrued interest, and dirty price.
 
 ### **Test Cases**  
-To test the logic of the code, a BondTest script is available with an explanation on why the test case was chosen for the project.
+1. Clone the BondTest class in the repository as BondTest.java to your local machine.
+2. Open the cloned test class within the project in IntelliJ.
+   - Each test case is justified within the BondTest script.
+3. Run the BondTest to execute the test cases.
 
 ### Efficiency Mechanisms
 
-#### Caching Mechanism
-To avoid redundant calculations, the system caches the present value of face value and coupons. This caching mechanism improves performance by eliminating unnecessary recalculations. Once the present values are computed, they are stored and reused, significantly reducing the computational load during repeated operations.
+1. #### Caching Mechanism
+   - To avoid redundant calculations, the system caches the present value of face value and coupons. This caching mechanism improves performance by eliminating          unnecessary recalculations. Once the present values are computed, they are stored and reused, significantly reducing the computational load during repeated         operations.
 
-#### Optimized Coupon Date Generation
-The system generates coupon dates only up to the maturity date of the bond. This optimization reduces unnecessary iterations and improves the efficiency of the coupon date generation process. By limiting the date generation to the bond’s lifecycle, the system ensures that storage is not wasted on irrelevant dates.
+2. #### Optimized Coupon Date Generation
+   - The system generates coupon dates only up to the maturity date of the bond. This optimization reduces unnecessary iterations and improves the efficiency of         the coupon date generation process. By limiting the date generation to the bond’s lifecycle, the system ensures that storage is not wasted on irrelevant dates.
 
-#### Evaluation of Present Values
-The system evaluates the present values of face value and coupons only when required. This evaluation strategy minimizes computation overhead and enhances performance. By delaying the computation until the values are needed, the system avoids unnecessary calculations and conserves processing power.
+3. #### Evaluation of Present Values
+   - The system evaluates the present values of face value and coupons only when required. This evaluation strategy minimizes computation overhead and enhances          performance. By delaying the computation until the values are needed, the system avoids unnecessary calculations and conserves processing power.
 
 ### Solution Approach
 
-#### Object-Oriented Design
-The solution employs an object-oriented design approach to model bonds as objects with properties and behaviors. This design promotes modularity, extensibility, and code reuse. Each bond instance encapsulates its attributes and methods, allowing for easy manipulation and extension of bond-related functionality.
+1. #### Object-Oriented Design
+   - The solution employs an object-oriented design approach to model bonds as objects with properties and behaviors. This design promotes modularity,                   extensibility, and code reuse. Each bond instance encapsulates its attributes and methods, allowing for easy manipulation and extension of bond-related             functionality.
 
-#### Separation of Concerns
-The solution separates the bond pricing logic into distinct methods within the Bond class. This separation of concerns enhances code readability, maintainability, and testability. By breaking down the functionality into smaller, focused methods, the code becomes easier to understand, modify, and test.
+2. #### Separation of Concerns
+   - The solution separates the bond pricing logic into distinct methods within the Bond class. This separation of concerns enhances code readability,                   maintainability, and testability. By breaking down the functionality into smaller, focused methods, the code becomes easier to understand, modify, and test.
 
-#### Exception Handling
-The solution handles exceptional cases, such as negative input values and invalid bond parameters, using Java exceptions. This approach ensures robustness and reliability in handling erroneous input parameters. By validating inputs and catching exceptions, the system can provide meaningful error messages to ensure the user inputs the oorrect parameters to prevent crashes.
+3. #### Exception Handling
+   - The solution handles exceptional cases, such as negative input values and invalid bond parameters, using Java exceptions. This approach ensures robustness and      reliability in handling erroneous input parameters. By validating inputs and catching exceptions, the system can provide meaningful error messages to ensure        the user inputs the oorrect parameters to prevent crashes.
 
 ### Data Structure
+1. #### LocalDate
+   - The `LocalDate` class from the `java.time` package is used to represent dates in the bond pricing system. This data structure provides convenient methods           for date manipulation and comparison. `LocalDate` helps in managing and computing dates accurately, which is crucial for bond pricing calculations.
 
-#### LocalDate
-The `LocalDate` class from the `java.time` package is used to represent dates in the bond pricing system. This data structure provides convenient methods for date manipulation and comparison. `LocalDate` helps in managing and computing dates accurately, which is crucial for bond pricing calculations.
+3. #### List
+   - The `List` interface from the `java.util` package is used to store coupon dates generated by the system. This dynamic data structure allows flexible                manipulation of coupon dates during the bond pricing process. Lists can grow or shrink as needed, making them ideal for managing a variable number of               coupon dates.
 
-#### List
-The `List` interface from the `java.util` package is used to store coupon dates generated by the system. This dynamic data structure allows flexible manipulation of coupon dates during the bond pricing process. Lists can grow or shrink as needed, making them ideal for managing a variable number of coupon dates.
-
-#### Double
-The `double` primitive data type is used to represent numerical values, such as coupon rate, yield, face value, and present values. This data type offers efficient storage and arithmetic operations for floating-point numbers. Using `double` ensures that the calculations are precise and can handle the fractional values typical in financial computations.
+4. #### Double
+   - The `double` primitive data type is used to represent numerical values, such as coupon rate, yield, face value, and present values. This data type offers           efficient storage and arithmetic operations for floating-point numbers. Using `double` ensures that the calculations are precise and can handle the fractional      values typical in financial computations.
