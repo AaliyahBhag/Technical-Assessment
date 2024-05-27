@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bond {
-    private final LocalDate settlementDate;
-    private final LocalDate maturityDate;
-    private final LocalDate lastCouponDate;
-    private final double  couponRate;
-    private final double yieldToMaturity;
-    private final double faceValue;
-    private final double dayCountConvention;
-    private final int couponFrequency;
+    private LocalDate settlementDate;
+    private LocalDate maturityDate;
+    private LocalDate lastCouponDate;
+    private double couponRate;
+    private double yieldToMaturity;
+    private double faceValue;
+    private double dayCountConvention;
+    private int couponFrequency;
 
     public Bond(LocalDate settlementDate, LocalDate maturityDate, LocalDate lastCouponDate,
                 double couponRate, double yieldToMaturity, double faceValue,
