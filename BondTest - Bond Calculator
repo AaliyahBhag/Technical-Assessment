@@ -15,7 +15,7 @@ class BondTest {
         double couponRate = 0.0825;
         double yield = 0.095;
         double faceValue = 100.00;
-        long dayCountConvention = 365;
+        double dayCountConvention = 365;
         int couponFrequency = 2;
 
         bond = new Bond(settlementDate, maturityDate, lastCouponDate, couponRate, yield, faceValue, dayCountConvention, couponFrequency);
@@ -112,7 +112,7 @@ class BondTest {
         double couponRate = 0.10;
         double yieldToMaturity = 0.05; // Yield is less than coupon rate
         double faceValue = 100.00;
-        long dayCountConvention = 365;
+        double dayCountConvention = 365;
         int couponFrequency = 2;
 
         Bond bondWithLowerYield = new Bond(settlementDate, maturityDate, lastCouponDate, couponRate, yieldToMaturity, faceValue, dayCountConvention, couponFrequency);
@@ -132,7 +132,7 @@ class BondTest {
         double couponRate = 0.05;
         double yieldToMaturity = 0.10; // Yield is greater than coupon rate
         double faceValue = 100.00;
-        long dayCountConvention = 365;
+        double dayCountConvention = 365;
         int couponFrequency = 2;
 
         Bond bondWithHigherYield = new Bond(settlementDate, maturityDate, lastCouponDate, couponRate, yieldToMaturity, faceValue, dayCountConvention, couponFrequency);
@@ -144,3 +144,4 @@ class BondTest {
         assertTrue(allInPrice < faceValue, "Dirty price should be less than face value when yield is greater than coupon rate.");
     }
 }
+
