@@ -18,7 +18,8 @@ This code presents a user interface for pricing South African Government Bonds (
    - Right-click on `Main.java` and select "Run Main.main()" to execute the program.
 #### Using the Application
 1. **Initial Input:**
-   - Upon running the program, it will display a welcome message and prompt you to choose example inputs (1 or 2) or input your own values ("no"). 
+   - Upon running the program, it will display a welcome message and prompt you toinsert a nominal value of a bond in Rand.
+   - Once then nominal is submitted, you will be prompted to choose example inputs (1 or 2) or input your own values ("no"). 
 2. **Example Inputs:**
    - The two predefined inputs are the R186 and R2032 examples given in the assessment.
    - Choosing example 1 or 2 will use predefined values for bond parameters and print the results to the console.
