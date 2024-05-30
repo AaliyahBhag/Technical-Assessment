@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,7 +53,7 @@ class BondTest {
         LocalDate lastCouponDate = LocalDate.parse("2024-03-31");
 
         assertThrows(IllegalArgumentException.class,
-            () -> new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, 0.095, 100.00, 365, 2)
+                () -> new Bond(settlementDate, maturityDate, lastCouponDate, 0.0825, 0.095, 100.00, 365, 2)
         );
     }
 

@@ -98,4 +98,3 @@ public class Bond {
         return presentValueOfFaceValue + presentValueOfCoupons - accruedInterest;
     }
 }
-
