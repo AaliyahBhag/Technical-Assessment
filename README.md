@@ -7,7 +7,7 @@ This code presents a user interface for pricing South African Government Bonds (
 
 #### Opening the Project
 1. **Clone the Repository:**
-   - Clone the files Main and Bond from the repository containing the Java classes.
+   - Clone the files Main and Bond within the Bond Pricer folder from the repository containing the Java classes.
    - Save the two classes as 'Main.java' and 'Bond.java' to your local machine.
 2. **Open the Project in IntelliJ IDEA:**
    - Launch IntelliJ IDEA.
@@ -35,11 +35,10 @@ This code presents a user interface for pricing South African Government Bonds (
    - The console output will display the calculated clean price, accrued interest, and dirty price.
 
 ### **Test Cases**  
-1. Clone the BondTest class in the repository as BondTest.java, clone Bond.java to your local machine.
-2. Download all dependencies, pom.xml and BondProject.iml
-3. Open the cloned test and Bond class within the project in IntelliJ.
+1. Clone the folder labelled Bond Testing in the repository to your local machine.
+2. Open the Bond.java class, BondTest.java and pom.xml in IntelliJ.
    - Each test case is justified within the BondTest script.
-4. Execute the pom.xml script and run the test cases
+4. Execute the pom.xml script and run the BondTest class. 
 
 ### Efficiency Mechanisms
 
