@@ -35,10 +35,11 @@ This code presents a user interface for pricing South African Government Bonds (
    - The console output will display the calculated clean price, accrued interest, and dirty price.
 
 ### **Test Cases**  
-1. Clone the BondTest class in the repository as BondTest.java to your local machine.
-2. Open the cloned test class within the project in IntelliJ.
+1. Clone the BondTest class in the repository as BondTest.java, clone Bond.java to your local machine.
+2. Download all dependencies, pom.xml and BondProject.iml
+3. Open the cloned test and Bond class within the project in IntelliJ.
    - Each test case is justified within the BondTest script.
-3. Run the BondTest to execute the test cases.
+4. Execute the pom.xml script and run the test cases
 
 ### Efficiency Mechanisms
 
