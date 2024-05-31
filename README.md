@@ -75,7 +75,7 @@ The objective of this code is to provide an interface for querying interest rate
 
 #### Opening the Project
 1. **Clone the repository**
-   - Clone the files Main.java and YieldCurve.java in the Interpolation folder from the repository containing the Java classes.
+   - Clone the files Main.java and YieldCurve.java in the Curve Interpolation folder from the repository containing the Java classes.
    - Save the two classes as Main.java and YieldCurve.java to your local machine.
 2. **Open the Project in IntelliJ IDEA:**
    - Launch IntelliJ IDEA.
@@ -97,7 +97,7 @@ The objective of this code is to provide an interface for querying interest rate
    - If the date is after the range of dates, a flat rate is extrapolated.
   
 ### Test Cases
-1. Clone the folder Interpolation Testing in the repository to your local machine.
+1. Clone the folder Curve Interpolation Testing in the repository to your local machine.
 2. Create a Maven Project in IntelliJ
 3. Open the YieldCurve.java class, YieldTest.java and pom.xml within the project created.
    - Each test case is justified within the YieldTest script.
